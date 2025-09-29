@@ -305,7 +305,7 @@ function showWinMessage() {
 // Add this function after the game state variables (around line 15)
 async function saveGameSession(sessionData) {
     try {
-        const API_BASE_URL = 'http://localhost:5000';
+        const API_BASE_URL = 'https://quizznationaldayabhanschool-1.onrender.com';
         const currentStudent = JSON.parse(localStorage.getItem('currentStudent') || '{}');
         
         if (!currentStudent.id) {
