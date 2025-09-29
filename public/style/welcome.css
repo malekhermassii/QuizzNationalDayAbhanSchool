@@ -1,0 +1,321 @@
+    @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@400;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #006c34 0%, #228b22 30%, #006c34 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Animated Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255,215,0,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255,215,0,0.1) 0%, transparent 50%),
+                url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 1;
+            animation: patternMove 20s linear infinite;
+        }
+
+        @keyframes patternMove {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(60px) translateY(60px); }
+        }
+
+        /* Floating Particles */
+        .particle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1;
+            animation: float 8s infinite ease-in-out;
+            opacity: 0.15;
+        }
+
+        .particle:nth-child(odd) {
+            animation-delay: -4s;
+            animation-direction: reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        
+        .welcome-container {
+            position: relative;
+            z-index: 2;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        /* Welcome Header */
+        .welcome-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255,255,255,0.95);
+            padding: 40px 30px;
+            border-radius: 25px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            backdrop-filter: blur(15px);
+            border: 3px solid rgba(255,215,0,0.5);
+            position: relative;
+            overflow: hidden;
+            animation: headerGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes headerGlow {
+            0% { box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+            100% { box-shadow: 0 20px 50px rgba(255,215,0,0.2), 0 0 30px rgba(255,215,0,0.1); }
+        }
+
+        .welcome-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,215,0,0.1), transparent);
+            animation: shimmer 4s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .flag-emoji {
+            font-size: 4rem;
+            margin-bottom: 15px;
+            animation: flagWave 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes flagWave {
+            0% { transform: rotateY(0deg) scale(1); }
+            100% { transform: rotateY(15deg) scale(1.05); }
+        }
+
+        .welcome-title {
+            color: #006C35;
+            font-family: 'Amiri', serif;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.2);
+        }
+
+        .arabic-subtitle {
+            font-family: 'Scheherazade New', serif;
+            color: #006C35;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+            direction: rtl;
+        }
+
+        .welcome-subtitle {
+            color: #666;
+            font-size: 1.1rem;
+            line-height: 1.4;
+        }
+
+        /* Student Form */
+        .student-form {
+            background: rgba(255,255,255,0.95);
+            padding: 40px 35px;
+            border-radius: 25px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            backdrop-filter: blur(15px);
+            border: 3px solid rgba(255,215,0,0.3);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: #006C35;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 15px 20px;
+            border: 3px solid rgba(0,108,53,0.2);
+            border-radius: 15px;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            background: rgba(255,255,255,0.9);
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .form-input:focus, .form-select:focus {
+            border-color: #FFD700;
+            box-shadow: 0 0 20px rgba(255,215,0,0.3);
+            transform: translateY(-2px);
+        }
+
+        .form-input.error, .form-select.error {
+            border-color: #e74c3c;
+            box-shadow: 0 0 20px rgba(231,76,60,0.3);
+        }
+
+        .form-input.success, .form-select.success {
+            border-color: #27ae60;
+            box-shadow: 0 0 20px rgba(39,174,96,0.3);
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 0.9rem;
+            margin-top: 8px;
+            font-weight: 500;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .error-message.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .success-message {
+            color: #27ae60;
+            font-size: 0.9rem;
+            margin-top: 8px;
+            font-weight: 500;
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #FFD700, #FFA500, #FFD700);
+            color: #006C35;
+            border: none;
+            padding: 18px 35px;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(255,215,0,0.4);
+            position: relative;
+            overflow: hidden;
+            margin-top: 15px;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            transition: all 0.4s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .submit-btn:hover::before {
+            width: 200%;
+            height: 200%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(255,215,0,0.6);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: 0 10px 30px rgba(255,215,0,0.2);
+        }
+
+        .submit-btn:disabled:hover {
+            transform: none;
+            box-shadow: 0 10px 30px rgba(255,215,0,0.2);
+        }
+
+        /* Loading State */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(0,108,53,0.3);
+            border-radius: 50%;
+            border-top-color: #006C35;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .welcome-container {
+                max-width: 90%;
+            }
+
+            .welcome-title {
+                font-size: 1.8rem;
+            }
+
+            .arabic-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .welcome-header, .student-form {
+                padding: 30px 25px;
+            }
+
+            .form-input, .form-select {
+                padding: 12px 15px;
+            }
+
+            .submit-btn {
+                padding: 15px 30px;
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Success Animation */
+        @keyframes successPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .form-success {
+            animation: successPulse 0.6s ease-in-out;
+        }
