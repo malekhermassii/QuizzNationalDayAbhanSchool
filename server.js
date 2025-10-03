@@ -25,7 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 const connectDB = async () => {
     try {
-        const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/student-flip-game';
+        const mongoURI = process.env.MONGODB_URI || 'mongodb+srv://malakhermassi111_db_user:JE6mnKiImYw0XLVG@quizz.tklzv0j.mongodb.net/?retryWrites=true&w=majority&appName=quizz';
         await mongoose.connect(mongoURI, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
