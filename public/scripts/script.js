@@ -305,13 +305,15 @@ function showWinMessage() {
 // Add this function after the game state variables (around line 15)
 async function saveGameSession(sessionData) {
     try {
-        const API_BASE_URL = 'https://quizznationaldayabhanschool-1.onrender.com';
+        const API_BASE_URL = window.location.origin;
         const currentStudent = JSON.parse(localStorage.getItem('currentStudent') || '{}');
         
         if (!currentStudent.id) {
-            console.warn('No student ID found, cannot save session');
+            console.warn('❌ No student ID found, cannot save session');
             return;
         }
+        
+        console.log('💾 Saving game session for student:', currentStudent.id);
         
         const response = await fetch(`${API_BASE_URL}/api/students/${currentStudent.id}/sessions`, {
             method: 'POST',
@@ -323,12 +325,13 @@ async function saveGameSession(sessionData) {
         
         if (response.ok) {
             const result = await response.json();
-            console.log('Game session saved:', result);
+            console.log('✅ Game session saved:', result);
         } else {
-            console.warn('Failed to save game session:', response.status);
+            const errorText = await response.text();
+            console.warn('⚠️ Failed to save game session:', response.status, errorText);
         }
     } catch (error) {
-        console.warn('Could not save game session:', error);
+        console.warn('❌ Could not save game session:', error);
     }
 }
         // Close win message

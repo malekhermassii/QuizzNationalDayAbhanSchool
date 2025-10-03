@@ -156,7 +156,7 @@
         // Add API base URL
         const API_BASE_URL = 'https://quizznationaldayabhanschool-1.onrender.com/';
         
-        const response = await fetch(`${API_BASE_URL}/api/students`, {
+        const response = await fetch(`${API_BASE_URL}/students`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

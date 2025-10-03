@@ -1,126 +1,43 @@
+
 const express = require('express');
-const Student = require('../models/Students');
+const StudentController = require('../controllers/studentController');
 
 const router = express.Router();
 
-// Create student
-router.post('/', async (req, res) => {
-    try {
-        const { name, grade } = req.body;
-        
-        if (!name || !grade) {
-            return res.status(400).json({
-                success: false,
-                message: 'Name and grade are required'
-            });
-        }
-
-        // Check if student exists
-        const existingStudent = await Student.findOne({ 
-            name: name.trim(), 
-            grade: parseInt(grade)
-        });
-
-        if (existingStudent) {
-            return res.status(200).json({
-                success: true,
-                message: 'Student found',
-                data: {
-                    studentId: existingStudent._id,
-                    student: existingStudent
-                }
-            });
-        }
-
-        // Create new student
-        const student = new Student({
-            name: name.trim(),
-            grade: parseInt(grade)
-        });
-
-        await student.save();
-
-        res.status(201).json({
-            success: true,
-            message: 'Student created successfully',
-            data: {
-                studentId: student._id,
-                student
-            }
-        });
-
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({
-            success: false,
-            message: 'Server error'
-        });
-    }
+// Apply to all routes
+router.use((req, res, next) => {
+    console.log(`📝 Student API: ${req.method} ${req.path}`, req.body);
+    next();
 });
+
+// Create student
+router.post('/students', StudentController.createStudent);
 
 // Get student by ID
-router.get('/:id', async (req, res) => {
-    try {
-        const student = await Student.findById(req.params.id);
-        
-        if (!student) {
-            return res.status(404).json({
-                success: false,
-                message: 'Student not found'
-            });
-        }
-
-        res.json({
-            success: true,
-            data: { student }
-        });
-
-    } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: 'Server error'
-        });
-    }
-});
+router.get('/:id', StudentController.getStudent);
 
 // Add game session
-router.post('/:id/sessions', async (req, res) => {
-    try {
-        const student = await Student.findById(req.params.id);
-        
-        if (!student) {
-            return res.status(404).json({
-                success: false,
-                message: 'Student not found'
-            });
-        }
+router.post('/:id/sessions', StudentController.addGameSession);
 
-        const sessionData = {
-            score: req.body.score || 0,
-            moves: req.body.moves || 0,
-            timeInSeconds: req.body.timeInSeconds || 0,
-            completed: req.body.completed || false,
-            cardsMatched: req.body.cardsMatched || 0
-        };
+// Get students by grade
+router.get('/grade/:grade', StudentController.getStudentsByGrade);
 
-        student.addGameSession(sessionData);
-        await student.save();
+// Get leaderboard
+router.get('/leaderboard/top', StudentController.getLeaderboard);
 
-        res.status(201).json({
-            success: true,
-            message: 'Session added successfully',
-            data: {
-                statistics: student.statistics
-            }
-        });
+// Get statistics
+router.get('/stats/overview', StudentController.getStatistics);
 
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({
-            success: false,
-            message: 'Server error'
-        });
-    }
-});
+// Search students
+router.get('/search/all', StudentController.searchStudents);
+
+// Get student sessions
+router.get('/:id/sessions/all', StudentController.getStudentSessions);
+
+// Update student
+router.put('/:id', StudentController.updateStudent);
+
+// Delete student
+router.delete('/:id', StudentController.deleteStudent);
 
 module.exports = router;
